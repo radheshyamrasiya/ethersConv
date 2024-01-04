@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ethereum Address Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            width: 80%;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 45%;
+            height: 300px;
+            margin-right: 10px;
+            padding: 10px;
+            vertical-align: top;
+        }
+
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Ethereum Address Converter</h1>
+        <div class="input-group">
+            <textarea id="ethAddresses" placeholder="Enter ETH Addresses (one per line)"></textarea>
+            <textarea id="convertedAddresses" placeholder="Converted Addresses" readonly></textarea>
+        </div>
+
+        <button onclick="convertToEthers()">Convert</button>
+    </div>
+
+    <script>
+        function convertToEthers() {
+            var addresses = document.getElementById("ethAddresses").value.split('\n');
+            var converted = addresses.map(address => {
+                try {
+                    return ethers.utils.getAddress(address);
+                } catch (error) {
+                    return "Invalid Address";
+                }
+            });
+
+            document.getElementById("convertedAddresses").value = converted.join('\n');
+        }
+    </script>
+</body>
+</html>
